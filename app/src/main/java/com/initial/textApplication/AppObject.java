@@ -7,13 +7,17 @@ import co.chatsdk.firebase.file_storage.FirebaseFileStorageModule;
 import co.chatsdk.firebase.FirebaseNetworkAdapter;
 import co.chatsdk.core.error.ChatSDKException;
 import co.chatsdk.core.session.ChatSDK;
+import co.chatsdk.firebase.push.FirebasePushModule;
 import co.chatsdk.ui.manager.BaseInterfaceAdapter;
 import co.chatsdk.firebase.ui.FirebaseUIModule;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.auth.EmailAuthProvider;
+import com.google.firebase.auth.PhoneAuthProvider;
 
 public class AppObject extends Application {
     private FirebaseAnalytics mFirebaseAnalytics;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -43,10 +47,11 @@ public class AppObject extends Application {
         }
 
         // File storage is needed for profile image upload and image messages
+        FirebasePushModule.activate();
         FirebaseFileStorageModule.activate();
 
         // Uncomment this to enable Firebase UI
-        // FirebaseUIModule.activate(EmailAuthProvider.PROVIDER_ID, PhoneAuthProvider.PROVIDER_ID);
+         FirebaseUIModule.activate(EmailAuthProvider.PROVIDER_ID, PhoneAuthProvider.PROVIDER_ID);
 
     }
 }
