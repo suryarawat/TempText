@@ -1,6 +1,7 @@
 package com.initial.textApplication;
 import android.app.Application;
 import android.content.Context;
+import android.os.Bundle;
 
 import co.chatsdk.core.session.Configuration;
 import co.chatsdk.firebase.file_storage.FirebaseFileStorageModule;
@@ -21,7 +22,7 @@ public class AppObject extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         // The Chat SDK needs access to the application's context
         Context context = getApplicationContext();
 
@@ -52,6 +53,11 @@ public class AppObject extends Application {
 
         // Uncomment this to enable Firebase UI
          FirebaseUIModule.activate(EmailAuthProvider.PROVIDER_ID, PhoneAuthProvider.PROVIDER_ID);
+//        Bundle bundle = new Bundle();
+//        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, id);
+//        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, name);
+//        bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "image");
+//        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
 
     }
 }
