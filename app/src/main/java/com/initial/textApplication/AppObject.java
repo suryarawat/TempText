@@ -1,4 +1,5 @@
 package com.initial.textApplication;
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import co.chatsdk.firebase.FirebaseNetworkAdapter;
 import co.chatsdk.core.error.ChatSDKException;
 import co.chatsdk.core.session.ChatSDK;
 import co.chatsdk.firebase.push.FirebasePushModule;
+import co.chatsdk.ui.main.MainAppBarActivity;
 import co.chatsdk.ui.manager.BaseInterfaceAdapter;
 import co.chatsdk.firebase.ui.FirebaseUIModule;
 
@@ -19,7 +21,7 @@ import com.google.firebase.auth.PhoneAuthProvider;
 public class AppObject extends Application {
     private FirebaseAnalytics mFirebaseAnalytics;
 
-    @Override
+
     public void onCreate() {
         super.onCreate();
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
@@ -33,8 +35,12 @@ public class AppObject extends Application {
             // The configuration object contains all the Chat SDK settings. If you want to see a full list of the settings
             // you should look inside the `Configuration` object (CMD+Click it in Android Studio) then you can see every
             // setting and the accompanying comment
+
+
             Configuration.Builder config = new Configuration.Builder(context);
 
+            config.publicRoomCreationEnabled(true);
+            config.publicChatRoomLifetimeMinutes(1440);
             // Perform any configuration steps
             // The root path is an optional setting that allows you to run multiple Chat SDK instances on one Realtime database.
             // For example, you could have one root path for "test" and another for "production"
@@ -42,7 +48,11 @@ public class AppObject extends Application {
 
             // Start the Chat SDK and pass in the interface adapter and network adapter. By subclassing either
             // of these classes you could modify deep functionality withing the Chat SDK
+
             ChatSDK.initialize(config.build(), new FirebaseNetworkAdapter(), new BaseInterfaceAdapter(context));
+            ChatSDK.ui().setMainActivity(MainMenuActivity.class);
+
+            //Class a =  ChatSDK.ui().getMainActivity();
         }
         catch (ChatSDKException e) {
         }

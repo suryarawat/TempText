@@ -10,12 +10,18 @@ import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.ErrorCodes;
 import com.firebase.ui.auth.IdpResponse;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.EmailAuthProvider;
+import com.google.firebase.auth.PhoneAuthProvider;
+
 import android.view.View;
 import android.widget.Button;
 
 import java.util.ArrayList;
 
 import co.chatsdk.core.session.ChatSDK;
+import co.chatsdk.firebase.file_storage.FirebaseFileStorageModule;
+import co.chatsdk.firebase.push.FirebasePushModule;
+import co.chatsdk.firebase.ui.FirebaseUIModule;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
 public class MainActivity extends AppCompatActivity {
@@ -26,15 +32,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
         FirebaseApp.initializeApp(this);
         signInButton = (Button) findViewById(R.id.button);
     }
 
     public void startAuthenticationActivity () {
-
         ArrayList<AuthUI.IdpConfig> idps = new ArrayList<>();
-
         idps.add(new AuthUI.IdpConfig.EmailBuilder().build());
 
         startActivityForResult(
