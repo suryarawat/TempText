@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.os.Bundle;
 
+import co.chatsdk.core.Tab;
 import co.chatsdk.core.session.Configuration;
 import co.chatsdk.firebase.file_storage.FirebaseFileStorageModule;
 import co.chatsdk.firebase.FirebaseNetworkAdapter;
@@ -17,6 +18,8 @@ import co.chatsdk.firebase.ui.FirebaseUIModule;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.PhoneAuthProvider;
+
+import java.util.List;
 
 public class AppObject extends Application {
     private FirebaseAnalytics mFirebaseAnalytics;
@@ -41,6 +44,7 @@ public class AppObject extends Application {
 
             config.publicRoomCreationEnabled(true);
             config.publicChatRoomLifetimeMinutes(1440);
+
             // Perform any configuration steps
             // The root path is an optional setting that allows you to run multiple Chat SDK instances on one Realtime database.
             // For example, you could have one root path for "test" and another for "production"
@@ -50,8 +54,8 @@ public class AppObject extends Application {
             // of these classes you could modify deep functionality withing the Chat SDK
 
             ChatSDK.initialize(config.build(), new FirebaseNetworkAdapter(), new BaseInterfaceAdapter(context));
-            ChatSDK.ui().setMainActivity(MainMenuActivity.class);
-
+            ChatSDK.ui().setSplashScreenActivity(StartupActivity.class);
+            ChatSDK.ui().publicThreadsTab().title = "Open Rooms";
             //Class a =  ChatSDK.ui().getMainActivity();
         }
         catch (ChatSDKException e) {

@@ -57,7 +57,6 @@ public class MainMenuActivity extends MainAppBarActivity {
         if (adapter == null) {
             adapter = new PagerAdapterTabs(getSupportFragmentManager());
         }
-
         final List<Tab> tabs = adapter.getTabs();
         tabs.remove(0);
         for (Tab tab : tabs) {
@@ -105,7 +104,7 @@ public class MainMenuActivity extends MainAppBarActivity {
 
     public boolean showLocalNotificationsForTab (TabLayout.Tab tab) {
         // Don't show notifications on the threads tabs
-        Tab t = adapter.getTabs().get(tab.getPosition());
+        Tab t = adapter.getTabs().get(tab.getPosition()+1);
 
         Class privateThreadsFragmentClass = ChatSDK.ui().privateThreadsFragment().getClass();
 
@@ -128,30 +127,30 @@ public class MainMenuActivity extends MainAppBarActivity {
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        return false;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.contact_developer) {
-
-            String emailAddress = ChatSDK.config().contactDeveloperEmailAddress;
-            String subject = ChatSDK.config().contactDeveloperEmailSubject;
-            String dialogTitle = ChatSDK.config().contactDeveloperDialogTitle;
-
-            if(!emailAddress.isEmpty())
-            {
-                Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
-                        "mailto", emailAddress, null));
-                emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
-                startActivity(Intent.createChooser(emailIntent, dialogTitle));
-            }
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        return false;
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        if (item.getItemId() == R.id.contact_developer) {
+//
+//            String emailAddress = ChatSDK.config().contactDeveloperEmailAddress;
+//            String subject = ChatSDK.config().contactDeveloperEmailSubject;
+//            String dialogTitle = ChatSDK.config().contactDeveloperDialogTitle;
+//
+//            if(!emailAddress.isEmpty())
+//            {
+//                Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
+//                        "mailto", emailAddress, null));
+//                emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
+//                startActivity(Intent.createChooser(emailIntent, dialogTitle));
+//            }
+//            return true;
+//        }
+//
+//        return super.onOptionsItemSelected(item);
+//    }
 
 }
