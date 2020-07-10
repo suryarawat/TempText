@@ -34,7 +34,8 @@ public class AppObject extends Application {
             // you should look inside the `Configuration` object (CMD+Click it in Android Studio) then you can see every
             // setting and the accompanying comment
             Configuration.Builder config = new Configuration.Builder(context);
-
+            config.publicRoomCreationEnabled(true);
+            config.publicChatRoomLifetimeMinutes(1);//the chat remains open for a minute
             // Perform any configuration steps
             // The root path is an optional setting that allows you to run multiple Chat SDK instances on one Realtime database.
             // For example, you could have one root path for "test" and another for "production"
@@ -51,13 +52,7 @@ public class AppObject extends Application {
         FirebasePushModule.activate();
         FirebaseFileStorageModule.activate();
 
-        // Uncomment this to enable Firebase UI
          FirebaseUIModule.activate(EmailAuthProvider.PROVIDER_ID, PhoneAuthProvider.PROVIDER_ID);
-//        Bundle bundle = new Bundle();
-//        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, id);
-//        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, name);
-//        bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "image");
-//        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
 
     }
 }
